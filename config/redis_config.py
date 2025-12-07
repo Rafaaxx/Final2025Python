@@ -36,19 +36,13 @@ class RedisConfig:
 
     def _initialize_client(self):
         """Initialize Redis client with connection pool"""
-        redis_host = os.getenv('REDIS_HOST', 'localhost')
-        redis_port = int(os.getenv('REDIS_PORT', '6379'))
-        redis_db = int(os.getenv('REDIS_DB', '0'))
-        redis_password = os.getenv('REDIS_PASSWORD', None)
+        redis_url = os.getenv('REDIS_URL', 'redis://localhost:6379/0')
         max_connections = int(os.getenv('REDIS_MAX_CONNECTIONS', '50'))
 
         try:
             # Create connection pool
-            self._pool = ConnectionPool(
-                host=redis_host,
-                port=redis_port,
-                db=redis_db,
-                password=redis_password,
+            self._pool = redis.from_url(
+                redis_url,
                 max_connections=max_connections,
                 decode_responses=True,  # Auto-decode bytes to str
                 socket_timeout=5,
@@ -61,7 +55,7 @@ class RedisConfig:
 
             # Test connection
             self._client.ping()
-            logger.info(f"✅ Redis connected successfully: {redis_host}:{redis_port} (DB: {redis_db})")
+            logger.info(f"✅ Redis connected successfully using URL: {redis_url}")
 
         except redis.ConnectionError as e:
             logger.warning(f"⚠️  Redis connection failed: {e}")
