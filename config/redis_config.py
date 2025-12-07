@@ -41,7 +41,7 @@ class RedisConfig:
 
         try:
             # Create connection pool
-            self._pool = redis.from_url(
+            self._client = redis.from_url(
                 redis_url,
                 max_connections=max_connections,
                 decode_responses=True,  # Auto-decode bytes to str
@@ -50,8 +50,7 @@ class RedisConfig:
                 retry_on_timeout=True
             )
 
-            # Create Redis client
-            self._client = redis.Redis(connection_pool=self._pool)
+            self._pool = self._client.connection_pool
 
             # Test connection
             self._client.ping()
