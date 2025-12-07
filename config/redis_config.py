@@ -91,13 +91,18 @@ class RedisConfig:
 
     def close(self):
         """Close Redis connection and pool"""
-        if self._client:
-            self._client.close()
-            logger.info("Redis connection closed")
-
+        # Elimina la llamada a self._client.close()
+        
+        # Desconecta el pool, que es la acción funcional de cerrar conexiones.
         if self._pool:
             self._pool.disconnect()
             logger.info("Redis connection pool disconnected")
+            self._pool = None  # Limpiamos la referencia del pool
+
+        # Luego limpiamos la referencia del cliente.
+        if self._client:
+            self._client = None
+            logger.info("Redis client instance marked as closed")
 
 
 # Global Redis instance
