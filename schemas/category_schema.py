@@ -8,6 +8,12 @@ if TYPE_CHECKING:
     from schemas.product_schema import ProductSchema
 
 
+class CategoryMinimalSchema(BaseSchema): # AÑADIR ESTA CLASE
+    """Minimal schema for Category, used in nested responses (e.g., Product)."""
+    id_key: int 
+    name: str 
+
+# El esquema completo de Category
 class CategorySchema(BaseSchema):
     """Schema for Category entity with validations."""
 

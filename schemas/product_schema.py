@@ -3,6 +3,7 @@ from typing import Optional, List, TYPE_CHECKING
 from pydantic import Field
 
 from schemas.base_schema import BaseSchema
+from schemas.category_schema import CategoryMinimalSchema 
 
 if TYPE_CHECKING:
     from schemas.category_schema import CategorySchema
@@ -19,6 +20,6 @@ class ProductSchema(BaseSchema):
 
     category_id: int = Field(..., description="Category ID reference (required)")
 
-    category: Optional['CategorySchema'] = None
+    category: Optional[CategoryMinimalSchema] = None # ¡PONER ESTA LÍNEA!
     reviews: Optional[List['ReviewSchema']] = []
     order_details: Optional[List['OrderDetailSchema']] = []
