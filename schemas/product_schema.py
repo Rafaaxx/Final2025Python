@@ -5,6 +5,7 @@ from pydantic import Field
 from schemas.base_schema import BaseSchema
 from schemas.category_schema import CategoryMinimalSchema 
 from schemas.review_schema import ReviewNestedSchema 
+from schemas.order_detail_schema import OrderDetailMinimalSchema
 
 if TYPE_CHECKING:
     from schemas.category_schema import CategorySchema
@@ -26,4 +27,4 @@ class ProductSchema(BaseSchema):
 
     category: Optional[CategoryMinimalSchema] = None 
     reviews: Optional[List[ReviewNestedSchema]] = []
-    order_details: Optional[List['OrderDetailSchema']] = []
+    order_details: Optional[List[OrderDetailMinimalSchema]] = []

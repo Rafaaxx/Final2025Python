@@ -8,7 +8,13 @@ if TYPE_CHECKING:
     from schemas.order_schema import OrderSchema
     from schemas.product_schema import ProductSchema
 
-
+class OrderDetailMinimalSchema(BaseSchema):
+    """Schema for OrderDetail used in nested lists (e.g. inside Product)."""
+    quantity: int
+    price: Optional[float]
+    order_id: int
+    product_id: int
+    
 class OrderDetailSchema(BaseSchema):
     """Schema for OrderDetail entity with validations."""
 
