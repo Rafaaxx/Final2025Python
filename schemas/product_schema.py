@@ -4,12 +4,14 @@ from pydantic import Field
 
 from schemas.base_schema import BaseSchema
 from schemas.category_schema import CategoryMinimalSchema 
-from schemas.review_schema import ReviewNestedSchema  
+# 🌟 Importación esencial del esquema sin recursión
+from schemas.review_schema import ReviewNestedSchema 
 
 if TYPE_CHECKING:
     from schemas.category_schema import CategorySchema
     from schemas.order_detail_schema import OrderDetailSchema
-  
+    # ❌ La importación tardía de ReviewSchema ya no es necesaria ni recomendable aquí
+
 
 class ProductSchema(BaseSchema):
     """Schema for Product entity with validations."""
@@ -21,5 +23,8 @@ class ProductSchema(BaseSchema):
     category_id: int = Field(..., description="Category ID reference (required)")
 
     category: Optional[CategoryMinimalSchema] = None 
+    
+    # 🎯 CORRECCIÓN: Usar ReviewNestedSchema para la lista de reseñas (rompe el ciclo)
     reviews: Optional[List[ReviewNestedSchema]] = []
+    
     order_details: Optional[List['OrderDetailSchema']] = []
