@@ -1,5 +1,5 @@
 from pydantic import Field
-
+from typing import Optional, TYPE_CHECKING
 from schemas.base_schema import BaseSchema
 
 # No necesitamos importar ProductSchema aquí para el nested schema
