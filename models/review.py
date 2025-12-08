@@ -2,7 +2,7 @@
 
 from sqlalchemy import Column, String, Float, Integer, ForeignKey, CheckConstraint
 from sqlalchemy.orm import relationship
-
+from typing import Optional, TYPE_CHECKING
 from models.base_model import BaseModel
 
 
